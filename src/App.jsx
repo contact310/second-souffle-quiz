@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import HomePage from './components/HomePage.jsx'
 import QuizView from './components/QuizView.jsx'
 import LeadForm from './components/LeadForm.jsx'
@@ -85,6 +86,7 @@ export default function App() {
           onRestart={handleRestart}
         />
       )}
+      <Analytics />
     </div>
   )
 }
