@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import HomePage from './components/HomePage.jsx'
 import QuizView from './components/QuizView.jsx'
+import LeadForm from './components/LeadForm.jsx'
 import ResultsView from './components/ResultsView.jsx'
 import { getNormalizedScore } from './utils/scoring.js'
 
 export default function App() {
-  const [currentView, setCurrentView] = useState('home') // 'home' | 'quiz' | 'results'
+  const [currentView, setCurrentView] = useState('home') // 'home' | 'quiz' | 'lead' | 'results'
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState([]) // [{ questionId, points, tag, label }]
   const [totalScore, setTotalScore] = useState(0) // Raw score — normalize before display
@@ -44,6 +45,10 @@ export default function App() {
   }
 
   const handleFinish = () => {
+    setCurrentView('lead')
+  }
+
+  const handleLeadSubmit = () => {
     setCurrentView('results')
   }
 
@@ -68,6 +73,9 @@ export default function App() {
           onBack={handleBack}
           onFinish={handleFinish}
         />
+      )}
+      {currentView === 'lead' && (
+        <LeadForm onSubmit={handleLeadSubmit} />
       )}
       {currentView === 'results' && (
         <ResultsView
