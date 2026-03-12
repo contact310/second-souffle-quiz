@@ -4,7 +4,7 @@ const ZAPIER_WEBHOOK_URL = 'https://hook.eu2.make.com/d8e8mr7uvpqkc1nn33u1vvena4
 
 export default function LeadForm({ onSubmit }) {
   const [visible, setVisible] = useState(false)
-  const [form, setForm] = useState({ prenom: '', email: '', telephone: '' })
+  const [form, setForm] = useState({ prenom: '', email: '', telephone: '+33' })
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
 
