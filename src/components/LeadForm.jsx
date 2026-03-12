@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
 
+const ZAPIER_WEBHOOK_URL = 'COLLE_TON_URL_ZAPIER_ICI'
+
 export default function LeadForm({ onSubmit }) {
   const [visible, setVisible] = useState(false)
   const [form, setForm] = useState({ prenom: '', email: '', telephone: '' })
   const [errors, setErrors] = useState({})
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 50)
@@ -18,13 +21,30 @@ export default function LeadForm({ onSubmit }) {
     return e
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const e2 = validate()
     if (Object.keys(e2).length > 0) {
       setErrors(e2)
       return
     }
+    setLoading(true)
+    try {
+      if (ZAPIER_WEBHOOK_URL !== 'COLLE_TON_URL_ZAPIER_ICI') {
+        await fetch(ZAPIER_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            first_name: form.prenom,
+            email: form.email,
+            phone: form.telephone,
+          }),
+        })
+      }
+    } catch (err) {
+      console.error('Zapier webhook error:', err)
+    }
+    setLoading(false)
     onSubmit(form)
   }
 
@@ -73,9 +93,10 @@ export default function LeadForm({ onSubmit }) {
 
           <button
             type="submit"
-            className="w-full bg-[#6a00ff] hover:bg-[#5a00d9] active:bg-[#4a00b3] text-white font-semibold text-base px-8 py-4 rounded-xl transition-all duration-200 shadow-lg shadow-[#6a00ff]/20 hover:shadow-[#6a00ff]/30 hover:-translate-y-0.5 active:translate-y-0 mt-2"
+            disabled={loading}
+            className="w-full bg-[#6a00ff] hover:bg-[#5a00d9] active:bg-[#4a00b3] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold text-base px-8 py-4 rounded-xl transition-all duration-200 shadow-lg shadow-[#6a00ff]/20 hover:shadow-[#6a00ff]/30 hover:-translate-y-0.5 active:translate-y-0 mt-2"
           >
-            Voir mes résultats →
+            {loading ? 'Chargement…' : 'Voir mes résultats →'}
           </button>
         </form>
 
