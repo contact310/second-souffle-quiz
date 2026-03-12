@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/19930808/uxlbgup/'
+const ZAPIER_WEBHOOK_URL = 'https://hook.eu2.make.com/d8e8mr7uvpqkc1nn33u1vvena4wlxf9g'
 
 export default function LeadForm({ onSubmit }) {
   const [visible, setVisible] = useState(false)
