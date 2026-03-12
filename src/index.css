@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #6a00ff;
+  --color-bg-main: #0F0F0F;
+  --color-bg-card: #1A1A1A;
+  --color-text-main: #FFFFFF;
+  --color-text-secondary: #A0A0A0;
+  --color-border: #2A2A2A;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #0F0F0F;
+  color: #FFFFFF;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Score counter animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* Staggered fade in for diagnostic blocks */
+.stagger-1 { animation-delay: 0ms; }
+.stagger-2 { animation-delay: 200ms; }
+.stagger-3 { animation-delay: 400ms; }
+.stagger-4 { animation-delay: 600ms; }
+.stagger-5 { animation-delay: 800ms; }
+.stagger-6 { animation-delay: 1000ms; }
+
+/* Slide transition for questions */
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+}
+
+.slide-in {
+  animation: slideInFromRight 0.3s ease-out forwards;
+}
+
+.slide-out {
+  animation: slideOutToLeft 0.3s ease-out forwards;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1A1A1A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2A2A2A;
+  border-radius: 2px;
+}
